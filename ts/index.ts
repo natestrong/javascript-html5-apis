@@ -1,6 +1,8 @@
 import '../assets/css/style.css';
+
 const app = document.getElementById('app');
 app.innerHTML = '<h1>JavaScript HTML5 APIs</h1>';
+
 app.innerHTML = `
   <h1>JavaScript HTML5 APIs</h1>
   <div class='uploader'>
@@ -32,12 +34,18 @@ app.innerHTML = `
   }
   </style>
 `;
+
 // if div element has the draggable property, it is supported by the browser
 if ('draggable' in document.createElement('div')) {
     init();
 }
+
+
 function init() {
     const dropzone = document.querySelector('.dropzone');
+
     dropzone.addEventListener('dragenter', console.log);
     dropzone.addEventListener('dragleave', console.log);
 }
+
+

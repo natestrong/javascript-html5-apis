@@ -22,6 +22,9 @@
     "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/register": "^7.10.5",
+    "@jest/types": "^27.0.6",
+    "@types/lodash": "^4.14.171",
+    "@types/node": "^16.4.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^4.0.0",
@@ -29,11 +32,16 @@
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.0",
     "file-loader": "^6.0.0",
+    "fork-ts-checker-webpack-plugin": "^6.2.13",
     "html-webpack-plugin": "^4.3.0",
+    "jest": "^27.0.6",
     "script-ext-html-webpack-plugin": "^2.1.4",
     "style-loader": "^1.2.1",
     "webpack": "^4.44.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@babel/preset-typescript": "^7.14.5"
   }
 }

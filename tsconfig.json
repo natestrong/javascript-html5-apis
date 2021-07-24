@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+//    "sourceMap": true,
+    "outDir": "./src",
+    "target": "ES2020",
+//    "esModuleInterop": true,
+//    "allowSyntheticDefaultImports": true,
+//    // Ensure that .d.ts files are created by tsc, but not .js files
+//    "declaration": true,
+//    "emitDeclarationOnly": true,
+//    // Ensure that Babel can safely transpile files in the TypeScript project
+//    "isolatedModules": true
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ],
+  "include": [
+    "./ts"
+  ]
+}
