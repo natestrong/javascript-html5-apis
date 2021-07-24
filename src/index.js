@@ -41,7 +41,10 @@ if ('draggable' in document.createElement('div')) {
 }
 
 function init() {
+    const dropzone = document.querySelector('.dropzone');
 
+    dropzone.addEventListener('dragenter', console.log);
+    dropzone.addEventListener('dragleave', console.log);
 }
 
 
