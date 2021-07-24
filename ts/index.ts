@@ -32,6 +32,10 @@ app.innerHTML = `
     border: 2px dashed #d2d5da;
     background: #f1f2f5;
   }
+  .active {
+    background: yellowgreen;
+    outline-color: yellow;
+  }
   </style>
 `;
 
@@ -44,8 +48,16 @@ if ('draggable' in document.createElement('div')) {
 function init() {
     const dropzone = document.querySelector('.dropzone');
 
-    dropzone.addEventListener('dragenter', console.log);
-    dropzone.addEventListener('dragleave', console.log);
+    dropzone.addEventListener('dragenter', addActiveStyle);
+    dropzone.addEventListener('dragleave', removeActiveStyle);
+}
+
+function addActiveStyle({target}:MouseEvent) {
+    (target as HTMLElement).classList.add('active');
+}
+
+function removeActiveStyle({target}:MouseEvent) {
+    (target as HTMLElement).classList.remove('active');
 }
 
 
