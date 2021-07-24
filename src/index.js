@@ -31,8 +31,8 @@ app.innerHTML = `
     background: #f1f2f5;
   }
   .active {
-    background: yellowgreen;
-    outline-color: yellow;
+    background: #ebfff6;
+    outline-color: #24b373;
   }
   </style>
 `;
