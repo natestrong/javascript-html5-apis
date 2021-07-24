@@ -1,4 +1,5 @@
 import '../assets/css/style.css';
+import fp from 'lodash/fp';
 
 const app = document.getElementById('app');
 app.innerHTML = '<h1>JavaScript HTML5 APIs</h1>';
@@ -34,15 +35,10 @@ app.innerHTML = `
   }
   .active {
     background: #ebfff6;
-    outline-color: #24b373;
+    border-color: #24b373;
   }
   </style>
 `;
-
-// if div element has the draggable property, it is supported by the browser
-if ('draggable' in document.createElement('div')) {
-    init();
-}
 
 
 function init() {
@@ -50,6 +46,7 @@ function init() {
 
     dropzone.addEventListener('dragenter', addActiveStyle);
     dropzone.addEventListener('dragleave', removeActiveStyle);
+    dropzone.addEventListener('dragover', fp.pipe(preventDefault, onDragOver));
 }
 
 function addActiveStyle({target}:MouseEvent) {
@@ -60,4 +57,17 @@ function removeActiveStyle({target}:MouseEvent) {
     (target as HTMLElement).classList.remove('active');
 }
 
+function preventDefault(event:Event) {
+    event.preventDefault();
+    return event;
+}
+
+function onDragOver(event:DragEvent) {
+    event.dataTransfer.dropEffect = 'link';
+}
+
+// if div element has the draggable property, it is supported by the browser
+if ('draggable' in document.createElement('div')) {
+    init();
+}
 
