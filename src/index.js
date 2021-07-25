@@ -46,7 +46,6 @@ function init() {
 }
 function onDrop(event) {
     console.log(event);
-    removeActiveStyle(event);
 }
 function addActiveStyle({ target }) {
     target.classList.add('active');

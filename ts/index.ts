@@ -52,7 +52,6 @@ function init() {
 
 function onDrop(event:DragEvent) {
     console.log(event);
-    removeActiveStyle(event);
 }
 
 function addActiveStyle({target}:MouseEvent) {
