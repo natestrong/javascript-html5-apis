@@ -38,11 +38,16 @@ app.innerHTML = `
   </style>
 `;
 function init() {
+    const dragme = document.querySelector('.dragme');
     const dropzone = document.querySelector('.dropzone');
+    dragme.addEventListener('dragstart', log);
     dropzone.addEventListener('dragenter', addActiveStyle);
     dropzone.addEventListener('dragleave', removeActiveStyle);
     dropzone.addEventListener('dragover', fp.pipe(preventDefault, onDragOver));
     dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle, onDrop));
+}
+function log(...args) {
+    console.log(args);
 }
 function onDrop(event) {
     console.log(event);
