@@ -45,6 +45,9 @@ function init() {
     const dragme = document.querySelector('.dragme');
     const dropzone = document.querySelector('.dropzone');
 
+    document.addEventListener('dragover', fp.pipe(preventDefault, stopPropagation));
+    document.addEventListener('drop', fp.pipe(preventDefault, stopPropagation));
+
     // dragme.addEventListener('dragstart', fp.pipe(setDragData));
 
     dropzone.addEventListener('dragenter', addActiveStyle);
