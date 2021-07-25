@@ -45,20 +45,17 @@ function init() {
     const dragme = document.querySelector('.dragme');
     const dropzone = document.querySelector('.dropzone');
 
-    dragme.addEventListener('dragstart', log);
+    dragme.addEventListener('dragstart', fp.pipe(log, setDragData));
 
     dropzone.addEventListener('dragenter', addActiveStyle);
     dropzone.addEventListener('dragleave', removeActiveStyle);
     dropzone.addEventListener('dragover', fp.pipe(preventDefault, onDragOver));
-    dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle, onDrop));
+    dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle));
 }
 
-function log(...args) {
-    console.log(args);
-}
-
-function onDrop(event:DragEvent) {
-    console.log(event);
+function setDragData(events:DragEvent[]) {
+    events.forEach(event => event.dataTransfer.setData("text/plain", "Hi frands"));
+    return events;
 }
 
 function addActiveStyle({target}:MouseEvent) {
@@ -81,11 +78,16 @@ function stopPropagation(event:Event) {
 }
 
 function onDragOver(event:DragEvent) {
-    event.dataTransfer.dropEffect = 'link';
+    event.dataTransfer.dropEffect = 'copy';
 }
 
 // if div element has the draggable property, it is supported by the browser
 if ('draggable' in document.createElement('div')) {
     init();
+}
+
+function log(...args) {
+    console.log(args);
+    return args;
 }
 
