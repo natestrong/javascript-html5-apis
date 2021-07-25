@@ -40,6 +40,7 @@ app.innerHTML = `
   </style>
 `;
 
+
 function init() {
     const dropzone = document.querySelector('.dropzone');
 
