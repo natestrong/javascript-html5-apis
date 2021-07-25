@@ -5,8 +5,8 @@ app.innerHTML = '<h1>JavaScript HTML5 APIs</h1>';
 app.innerHTML = `
   <h1>JavaScript HTML5 APIs</h1>
   <div class='uploader'>
-    <div class='dragme' draggable='true' id='dragEl'></div>
-    <div class='dropzone'>🎯 Drag Here!</div>
+    <h2>Upload Your Files 🦄</h2>
+    <div class='dropzone'>📂 Drop files here..</div>
   </div>
   <style>
   .uploader {
