@@ -7,7 +7,7 @@ app.innerHTML = '<h1>JavaScript HTML5 APIs</h1>';
 app.innerHTML = `
   <h1>JavaScript HTML5 APIs</h1>
   <div class='uploader'>
-    <div class='dragme' draggable='true'></div>
+    <div class='dragme' draggable='true' id='dragEl'></div>
     <div class='dropzone'>🎯 Drag Here!</div>
   </div>
   <style>
@@ -45,17 +45,23 @@ function init() {
     const dragme = document.querySelector('.dragme');
     const dropzone = document.querySelector('.dropzone');
 
-    dragme.addEventListener('dragstart', fp.pipe(log, setDragData));
+    dragme.addEventListener('dragstart', fp.pipe(setDragData));
 
     dropzone.addEventListener('dragenter', addActiveStyle);
     dropzone.addEventListener('dragleave', removeActiveStyle);
     dropzone.addEventListener('dragover', fp.pipe(preventDefault, onDragOver));
-    dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle));
+    dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle, appendDroppedElement));
 }
 
-function setDragData(events:DragEvent[]) {
-    events.forEach(event => event.dataTransfer.setData("text/plain", "Hi frands"));
-    return events;
+function setDragData(event:DragEvent) {
+    event.dataTransfer.setData('text/plain', (event.target as HTMLElement).id);
+    return event;
+}
+
+function appendDroppedElement(event:DragEvent) {
+    const id = event.dataTransfer.getData('text/plain');
+    const el = document.getElementById(id);
+    (event.target as HTMLElement).append(el);
 }
 
 function addActiveStyle({target}:MouseEvent) {
@@ -84,10 +90,5 @@ function onDragOver(event:DragEvent) {
 // if div element has the draggable property, it is supported by the browser
 if ('draggable' in document.createElement('div')) {
     init();
-}
-
-function log(...args) {
-    console.log(args);
-    return args;
 }
 
