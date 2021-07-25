@@ -40,11 +40,14 @@ app.innerHTML = `
 function init() {
     const dragme = document.querySelector('.dragme');
     const dropzone = document.querySelector('.dropzone');
-    dragme.addEventListener('dragstart', fp.pipe(setDragData));
+    // dragme.addEventListener('dragstart', fp.pipe(setDragData));
     dropzone.addEventListener('dragenter', addActiveStyle);
     dropzone.addEventListener('dragleave', removeActiveStyle);
     dropzone.addEventListener('dragover', fp.pipe(preventDefault, onDragOver));
-    dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle, appendDroppedElement));
+    dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle, uploadDraggedFile));
+}
+function uploadDraggedFile(event) {
+    console.log(event.dataTransfer.files);
 }
 function setDragData(event) {
     event.dataTransfer.setData('text/plain', event.target.id);
