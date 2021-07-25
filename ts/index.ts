@@ -47,18 +47,30 @@ function init() {
     dropzone.addEventListener('dragenter', addActiveStyle);
     dropzone.addEventListener('dragleave', removeActiveStyle);
     dropzone.addEventListener('dragover', fp.pipe(preventDefault, onDragOver));
+    dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle, onDrop));
+}
+
+function onDrop(event:DragEvent) {
+    console.log(event);
+    removeActiveStyle(event);
 }
 
 function addActiveStyle({target}:MouseEvent) {
     (target as HTMLElement).classList.add('active');
 }
 
-function removeActiveStyle({target}:MouseEvent) {
-    (target as HTMLElement).classList.remove('active');
+function removeActiveStyle(event:MouseEvent) {
+    (event.target as HTMLElement).classList.remove('active');
+    return event;
 }
 
 function preventDefault(event:Event) {
     event.preventDefault();
+    return event;
+}
+
+function stopPropagation(event:Event) {
+    event.stopPropagation();
     return event;
 }
 

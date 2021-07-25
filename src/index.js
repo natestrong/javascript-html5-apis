@@ -42,15 +42,25 @@ function init() {
     dropzone.addEventListener('dragenter', addActiveStyle);
     dropzone.addEventListener('dragleave', removeActiveStyle);
     dropzone.addEventListener('dragover', fp.pipe(preventDefault, onDragOver));
+    dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle, onDrop));
+}
+function onDrop(event) {
+    console.log(event);
+    removeActiveStyle(event);
 }
 function addActiveStyle({ target }) {
     target.classList.add('active');
 }
-function removeActiveStyle({ target }) {
-    target.classList.remove('active');
+function removeActiveStyle(event) {
+    event.target.classList.remove('active');
+    return event;
 }
 function preventDefault(event) {
     event.preventDefault();
+    return event;
+}
+function stopPropagation(event) {
+    event.stopPropagation();
     return event;
 }
 function onDragOver(event) {
