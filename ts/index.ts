@@ -8,7 +8,7 @@ app.innerHTML = `
   <h1>JavaScript HTML5 APIs</h1>
   <div class='uploader'>
     <h2>Upload Your Files 🦄</h2>
-    <div class='dropzone'>📂 Drop files here..</div>
+    <div class='dropzone'>📂 Drop GIFs here..</div>
   </div>
   <style>
   .uploader {
@@ -40,24 +40,29 @@ app.innerHTML = `
   </style>
 `;
 
+const ALLOWED_FILE_TYPES = ['image/gif'];
 
 function init() {
-    const dragme = document.querySelector('.dragme');
     const dropzone = document.querySelector('.dropzone');
 
     document.addEventListener('dragover', fp.pipe(preventDefault, stopPropagation));
     document.addEventListener('drop', fp.pipe(preventDefault, stopPropagation));
 
-    // dragme.addEventListener('dragstart', fp.pipe(setDragData));
-
     dropzone.addEventListener('dragenter', addActiveStyle);
     dropzone.addEventListener('dragleave', removeActiveStyle);
     dropzone.addEventListener('dragover', fp.pipe(preventDefault, onDragOver));
-    dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle, uploadDraggedFile));
+    dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle, filterByAllowed, uploadFiles));
 }
 
-function uploadDraggedFile(event:DragEvent) {
-    console.log(event.dataTransfer.files);
+function uploadFiles(files:File[]) {
+    if (!files.length) alert('No gifs detected');
+    console.log(files);
+}
+
+const filterByAllowed = fp.curry(filterByFileType)(ALLOWED_FILE_TYPES);
+
+function filterByFileType(allowedFileTypes:string[], event:DragEvent):File[] {
+    return [...event.dataTransfer.files].filter(file => allowedFileTypes.includes(file.type));
 }
 
 function setDragData(event:DragEvent) {
