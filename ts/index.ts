@@ -9,6 +9,7 @@ app.innerHTML = `
   <div class='uploader'>
     <h2>Upload Your Files 🦄</h2>
     <div class='dropzone'>📂 Drop GIFs here..</div>
+    <div class='list' id='preview-list'></div>
   </div>
   <style>
   .uploader {
@@ -68,25 +69,28 @@ function showFilesPreview(files:File[]) {
 
 function showFilePreview(file:File) {
     const reader = new FileReader();
-    reader.addEventListener('load', console.log);
+    reader.addEventListener('load', displayImage);
     reader.readAsDataURL(file);
+}
+
+const displayImage = fp.curry(displayImageOnElement)(document.getElementById('preview-list'));
+
+function displayImageOnElement(listEl:HTMLElement, progressEvent:ProgressEvent) {
+    const div = document.createElement('div');
+    div.innerHTML = `
+    <div style='display: flex'>
+        <img
+            src='${progressEvent.target.result}'
+            style='width: 120px; margin: 10px; border-radius: 10px'>
+    </div>
+    `;
+    listEl.append(div);
 }
 
 const filterByAllowed = fp.curry(filterByFileType)(ALLOWED_FILE_TYPES);
 
 function filterByFileType(allowedFileTypes:string[], event:DragEvent):File[] {
     return [...event.dataTransfer.files].filter(file => allowedFileTypes.includes(file.type));
-}
-
-function setDragData(event:DragEvent) {
-    event.dataTransfer.setData('text/plain', (event.target as HTMLElement).id);
-    return event;
-}
-
-function appendDroppedElement(event:DragEvent) {
-    const id = event.dataTransfer.getData('text/plain');
-    const el = document.getElementById(id);
-    (event.target as HTMLElement).append(el);
 }
 
 function addActiveStyle({target}:MouseEvent) {
