@@ -63,10 +63,14 @@ function init() {
 function showFilesPreview(files:File[]) {
     if (!files.length) alert('No gifs detected');
 
-    const reader = new FileReader();
-    console.log(reader);
+    files.forEach(showFilePreview);
 }
 
+function showFilePreview(file:File) {
+    const reader = new FileReader();
+    reader.addEventListener('load', console.log);
+    reader.readAsDataURL(file);
+}
 
 const filterByAllowed = fp.curry(filterByFileType)(ALLOWED_FILE_TYPES);
 
