@@ -69,19 +69,22 @@ function showFilesPreview(files:File[]) {
 
 function showFilePreview(file:File) {
     const reader = new FileReader();
-    reader.onload = displayImage;
+    reader.onload = displayImage(file);
     reader.readAsDataURL(file);
 }
 
 const displayImage = fp.curry(displayImageOnElement)(document.getElementById('preview-list'));
 
-function displayImageOnElement(listEl:HTMLElement, progressEvent:ProgressEvent<FileReader>) {
+function displayImageOnElement(listEl:HTMLElement, file:File, progressEvent:ProgressEvent<FileReader>) {
     const div = document.createElement('div');
+    console.log(file);
     div.innerHTML = `
-    <div style='display: flex'>
+    <div style='display: flex; align-items: center;'>
         <img
-            src='${progressEvent.target.result}'
+            src='${progressEvent.target.result}''
+            alt='${file.name}'
             style='width: 120px; margin: 10px; border-radius: 10px'>
+        <p>${file.name} <span>${file.size}</span></p>
     </div>
     `;
     listEl.append(div);
