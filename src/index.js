@@ -55,7 +55,7 @@ function showFilesPreview(files) {
 }
 function showFilePreview(file) {
     const reader = new FileReader();
-    reader.addEventListener('load', displayImage);
+    reader.onload = displayImage;
     reader.readAsDataURL(file);
 }
 const displayImage = fp.curry(displayImageOnElement)(document.getElementById('preview-list'));

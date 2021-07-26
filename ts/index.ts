@@ -69,13 +69,13 @@ function showFilesPreview(files:File[]) {
 
 function showFilePreview(file:File) {
     const reader = new FileReader();
-    reader.addEventListener('load', displayImage);
+    reader.onload = displayImage;
     reader.readAsDataURL(file);
 }
 
 const displayImage = fp.curry(displayImageOnElement)(document.getElementById('preview-list'));
 
-function displayImageOnElement(listEl:HTMLElement, progressEvent:ProgressEvent) {
+function displayImageOnElement(listEl:HTMLElement, progressEvent:ProgressEvent<FileReader>) {
     const div = document.createElement('div');
     div.innerHTML = `
     <div style='display: flex'>
