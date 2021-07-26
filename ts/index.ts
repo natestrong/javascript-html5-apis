@@ -51,13 +51,22 @@ function init() {
     dropzone.addEventListener('dragenter', addActiveStyle);
     dropzone.addEventListener('dragleave', removeActiveStyle);
     dropzone.addEventListener('dragover', fp.pipe(preventDefault, onDragOver));
-    dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle, filterByAllowed, uploadFiles));
+    dropzone.addEventListener('drop', fp.pipe(
+        preventDefault,
+        stopPropagation,
+        removeActiveStyle,
+        filterByAllowed,
+        showFilesPreview,
+    ));
 }
 
-function uploadFiles(files:File[]) {
+function showFilesPreview(files:File[]) {
     if (!files.length) alert('No gifs detected');
-    console.log(files);
+
+    const reader = new FileReader();
+    console.log(reader);
 }
+
 
 const filterByAllowed = fp.curry(filterByFileType)(ALLOWED_FILE_TYPES);
 
