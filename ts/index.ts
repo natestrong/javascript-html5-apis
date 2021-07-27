@@ -4,7 +4,7 @@ const app = document.getElementById('app');
 app.innerHTML = `<h1>JavaScript HTML5 APIs</h1>`;
 
 const init = () => {
-    console.log(Notification.permission);
+    Notification.requestPermission().then(console.log);
 };
 
 if ('Notification' in window) {
