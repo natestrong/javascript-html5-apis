@@ -1,5 +1,6 @@
 import '../assets/css/style.css';
 import fp from 'lodash/fp';
+import {Event} from '@jest/types/build/Circus';
 
 const app = document.getElementById('app');
 app.innerHTML = '<h1>JavaScript HTML5 APIs</h1>';
@@ -48,7 +49,7 @@ function init() {
     const dropzone = document.querySelector('.dropzone');
 
     const filesEl = document.querySelector('.files');
-    filesEl.addEventListener('change', fp.pipe(console.log));
+    filesEl.addEventListener('change', fp.pipe(filterByAllowed, showFilesPreview));
 
     document.addEventListener('dragover', fp.pipe(preventDefault, stopPropagation));
     document.addEventListener('drop', fp.pipe(preventDefault, stopPropagation));
@@ -95,8 +96,9 @@ function displayImageOnElement(listEl:HTMLElement, file:File, progressEvent:Prog
 
 const filterByAllowed = fp.curry(filterByFileType)(ALLOWED_FILE_TYPES);
 
-function filterByFileType(allowedFileTypes:string[], event:DragEvent):File[] {
-    return [...event.dataTransfer.files].filter(file => allowedFileTypes.includes(file.type));
+function filterByFileType(allowedFileTypes:string[], event:DragEvent | Event):File[] {
+    const files = event.target.files || event.dataTransfer.files;
+    return [...files].filter(file => allowedFileTypes.includes(file.type));
 }
 
 function addActiveStyle({target}:MouseEvent) {

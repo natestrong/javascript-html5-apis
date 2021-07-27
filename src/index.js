@@ -43,7 +43,7 @@ const ALLOWED_FILE_TYPES = ['image/gif'];
 function init() {
     const dropzone = document.querySelector('.dropzone');
     const filesEl = document.querySelector('.files');
-    filesEl.addEventListener('change', fp.pipe(console.log));
+    filesEl.addEventListener('change', fp.pipe(filterByAllowed, showFilesPreview));
     document.addEventListener('dragover', fp.pipe(preventDefault, stopPropagation));
     document.addEventListener('drop', fp.pipe(preventDefault, stopPropagation));
     dropzone.addEventListener('dragenter', addActiveStyle);
@@ -77,7 +77,8 @@ function displayImageOnElement(listEl, file, progressEvent) {
 }
 const filterByAllowed = fp.curry(filterByFileType)(ALLOWED_FILE_TYPES);
 function filterByFileType(allowedFileTypes, event) {
-    return [...event.dataTransfer.files].filter(file => allowedFileTypes.includes(file.type));
+    const files = event.target.files || event.dataTransfer.files;
+    return [...files].filter(file => allowedFileTypes.includes(file.type));
 }
 function addActiveStyle({ target }) {
     target.classList.add('active');
