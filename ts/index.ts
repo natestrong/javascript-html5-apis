@@ -46,8 +46,8 @@ const ALLOWED_FILE_TYPES = ['image/gif'];
 
 function init() {
     const dropzone = document.querySelector('.dropzone');
-    const filesEl = document.querySelector('.files');
 
+    const filesEl = document.querySelector('.files');
     filesEl.addEventListener('change', fp.pipe(console.log));
 
     document.addEventListener('dragover', fp.pipe(preventDefault, stopPropagation));
