@@ -7,6 +7,7 @@ app.innerHTML = '<h1>JavaScript HTML5 APIs</h1>';
 app.innerHTML = `
   <h1>JavaScript HTML5 APIs</h1>
   <div class='uploader'>
+    <input type='file' class='files' accept='image/gif' multiple>
     <h2>Upload Your Files 🦄</h2>
     <div class='dropzone'>📂 Drop GIFs here..</div>
     <div class='list' id='preview-list'></div>
@@ -45,6 +46,9 @@ const ALLOWED_FILE_TYPES = ['image/gif'];
 
 function init() {
     const dropzone = document.querySelector('.dropzone');
+    const filesEl = document.querySelector('.files');
+
+    filesEl.addEventListener('change', fp.pipe(console.log));
 
     document.addEventListener('dragover', fp.pipe(preventDefault, stopPropagation));
     document.addEventListener('drop', fp.pipe(preventDefault, stopPropagation));

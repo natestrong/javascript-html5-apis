@@ -1,12 +1,11 @@
 import '../assets/css/style.css';
 import fp from 'lodash/fp';
-
 const app = document.getElementById('app');
 app.innerHTML = '<h1>JavaScript HTML5 APIs</h1>';
 app.innerHTML = `
   <h1>JavaScript HTML5 APIs</h1>
   <div class='uploader'>
-    <input type='file' class='files'>
+    <input type='file' class='files' accept='image/gif' multiple>
     <h2>Upload Your Files 🦄</h2>
     <div class='dropzone'>📂 Drop GIFs here..</div>
     <div class='list' id='preview-list'></div>
@@ -41,9 +40,10 @@ app.innerHTML = `
   </style>
 `;
 const ALLOWED_FILE_TYPES = ['image/gif'];
-
 function init() {
     const dropzone = document.querySelector('.dropzone');
+    const filesEl = document.querySelector('.files');
+    filesEl.addEventListener('change', fp.pipe(console.log));
     document.addEventListener('dragover', fp.pipe(preventDefault, stopPropagation));
     document.addEventListener('drop', fp.pipe(preventDefault, stopPropagation));
     dropzone.addEventListener('dragenter', addActiveStyle);
@@ -51,21 +51,17 @@ function init() {
     dropzone.addEventListener('dragover', fp.pipe(preventDefault, onDragOver));
     dropzone.addEventListener('drop', fp.pipe(preventDefault, stopPropagation, removeActiveStyle, filterByAllowed, showFilesPreview));
 }
-
 function showFilesPreview(files) {
     if (!files.length)
         alert('No gifs detected');
     files.forEach(showFilePreview);
 }
-
 function showFilePreview(file) {
     const reader = new FileReader();
     reader.onload = displayImage(file);
     reader.readAsDataURL(file);
 }
-
 const displayImage = fp.curry(displayImageOnElement)(document.getElementById('preview-list'));
-
 function displayImageOnElement(listEl, file, progressEvent) {
     const div = document.createElement('div');
     div.innerHTML = `
@@ -79,36 +75,28 @@ function displayImageOnElement(listEl, file, progressEvent) {
     `;
     listEl.append(div);
 }
-
 const filterByAllowed = fp.curry(filterByFileType)(ALLOWED_FILE_TYPES);
-
 function filterByFileType(allowedFileTypes, event) {
     return [...event.dataTransfer.files].filter(file => allowedFileTypes.includes(file.type));
 }
-
-function addActiveStyle({target}) {
+function addActiveStyle({ target }) {
     target.classList.add('active');
 }
-
 function removeActiveStyle(event) {
     event.target.classList.remove('active');
     return event;
 }
-
 function preventDefault(event) {
     event.preventDefault();
     return event;
 }
-
 function stopPropagation(event) {
     event.stopPropagation();
     return event;
 }
-
 function onDragOver(event) {
     event.dataTransfer.dropEffect = 'copy';
 }
-
 // if div element has the draggable property, it is supported by the browser
 if ('draggable' in document.createElement('div')) {
     init();
