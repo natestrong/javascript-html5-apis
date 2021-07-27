@@ -77,7 +77,6 @@ const displayImage = fp.curry(displayImageOnElement)(document.getElementById('pr
 
 function displayImageOnElement(listEl:HTMLElement, file:File, progressEvent:ProgressEvent<FileReader>) {
     const div = document.createElement('div');
-    console.log(file);
     div.innerHTML = `
     <div style='display: flex; align-items: center;'>
         <img
