@@ -4,12 +4,14 @@ const app = document.getElementById('app');
 app.innerHTML = `<h1>JavaScript HTML5 APIs</h1>`;
 const init = async () => {
     await Notification.requestPermission();
-    notify('hi frands', 'coolio').onclick = onNotificationClick;
+    notify('hi frands', 'coolio', onNotificationClick);
 };
-function notify(title, body) {
+function notify(title, body, onClickCb) {
     if (Notification.permission !== 'granted')
         return;
-    return new Notification(title, { body, icon: ICON });
+    const notification = new Notification(title, { body, icon: ICON });
+    notification.onclick = onClickCb;
+    return notification;
 }
 function onNotificationClick(notificationEvent) {
     console.log(notificationEvent);
