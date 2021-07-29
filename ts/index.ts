@@ -21,6 +21,7 @@ function notify(title:string, body:string, onClickCb):Notification {
 function onNotificationClick(notificationEvent:Event) {
     console.log(notificationEvent);
     (notificationEvent.target as Notification).close();
+    window.parent.focus();
 }
 
 

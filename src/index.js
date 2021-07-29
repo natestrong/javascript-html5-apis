@@ -16,6 +16,7 @@ function notify(title, body, onClickCb) {
 function onNotificationClick(notificationEvent) {
     console.log(notificationEvent);
     notificationEvent.target.close();
+    window.parent.focus();
 }
 if ('Notification' in window) {
     init();
