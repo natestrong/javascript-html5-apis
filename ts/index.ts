@@ -16,6 +16,7 @@ function notify(title:string, body:string) {
     return new Notification(title, {body, icon:ICON,});
 }
 
+
 if ('Notification' in window) {
     init();
 }
