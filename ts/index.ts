@@ -13,7 +13,7 @@ const init = async () => {
 
 function notify(title:string, body:string) {
     if (Notification.permission !== 'granted') return;
-    return new Notification(title, {body, icon:ICON,});
+    return new Notification(title, {body, icon:ICON});
 }
 
 
