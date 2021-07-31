@@ -10,7 +10,7 @@ app.innerHTML = `
   </div>
 `;
 
-const cookie = document.querySelector('[data-cookie]');
+const cookie = document.querySelector<HTMLElement>('[data-cookie]');
 const accept = cookie.querySelector('[data-cookie-accept]');
 const reject = cookie.querySelector('[data-cookie-reject]');
 
