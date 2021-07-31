@@ -31,3 +31,4 @@ setTimeout(() => removeItem('cookies'), 2000);
 setValue('name', 'Todd Motto');
 
 setTimeout(() => empty(), 4000);
+

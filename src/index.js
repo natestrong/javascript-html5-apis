@@ -8,6 +8,15 @@ const setValue = (key, value) => {
 const getValue = (key) => {
     return JSON.parse(ls.getItem(key));
 };
+const removeItem = (key) => {
+    ls.removeItem(key);
+};
+const empty = () => {
+    ls.clear();
+};
 setValue('cookies', true);
 const choice = getValue('cookies');
 console.log(choice);
+setTimeout(() => removeItem('cookies'), 2000);
+setValue('name', 'Todd Motto');
+setTimeout(() => empty(), 4000);
