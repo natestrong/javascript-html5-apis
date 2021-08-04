@@ -5,10 +5,20 @@ export const storage = type => {
     return {
         isSupported,
         set(key, value) {
+            try {
             store.setItem(key, JSON.stringify(value));
+            } catch (e) {
+                if (e instanceof DOMException) {
+                    console.warn(e);
+                }
+            }
         },
         get(key) {
-            return JSON.parse(store.getItem(key));
+            try {
+                return JSON.parse(store.getItem(key));
+            } catch (e) {
+                console.warn(e);
+            }
         },
         remove(key) {
             store.removeItem(key);
